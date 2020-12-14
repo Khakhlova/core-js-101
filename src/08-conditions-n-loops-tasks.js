@@ -96,10 +96,17 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  let result;
+  if ((a + b <= c) || (a + c <= b) || (b + c <= a)) {
+    result = false;
+  } else if ((a < 0) || (b < 0) || (c < 0)) {
+    result = false;
+  } else {
+    result = true;
+  }
+  return result;
 }
-
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
@@ -180,10 +187,27 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  let result = '';
+  let count = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    count = 0;
+    for (let j = 0; j < arr.length; j += 1) {
+      if (arr[i] === arr[j]) {
+        count += 1;
+      }
+    }
+    if (count === 1) {
+      result = arr[i];
+      break;
+    }
+    if (count > 1) {
+      result = null;
+    }
+  }
+  return result;
 }
-
 
 /**
  * Returns the string representation of math interval,
@@ -224,8 +248,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -285,10 +309,15 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let result = num;
+  let arr = [];
+  while (result > 9) {
+    arr = result.toString().split('');
+    result = arr.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10));
+  }
+  return result;
 }
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -311,8 +340,25 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const brackets = {
+    ')': '(',
+    ']': '[',
+    '}': '{',
+    '>': '<',
+  };
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    const br = str[i];
+    if (stack.length === 0) {
+      stack.push(br);
+    } else if (brackets[br] === stack[stack.length - 1]) {
+      stack.pop();
+    } else {
+      stack.push(br);
+    }
+  }
+  return stack.length === 0;
 }
 
 
